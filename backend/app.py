@@ -36,14 +36,15 @@ def initialize_codellama():
 def time_complexity():
     chatbot_pipeline = initialize_codellama()
     code = request.json['code']
-    query = f"give me the time complexity of this code: {code}"
+    query = f"Answer in a single line, the time complexity of this code: {code}."
 
     try:
         response = chatbot_pipeline.invoke({"question":query})
-        print(response)
+        list_res = response.split('.')
+        print(list_res[0])
 
         return jsonify({
-            "tc": response
+            "tc": list_res[0]
         })
 
     except Exception as e:
